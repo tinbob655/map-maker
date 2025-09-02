@@ -1,0 +1,59 @@
+//colour declarations for site theme
+@use "var/variables";
+@import './text.scss';
+@import url('https://fonts.googleapis.com/css2?family=Bellota+Text:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+
+body {
+    background-color: variables.$color-bg;
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow-x: hidden;
+}
+
+button {
+    width: fit-content;
+    max-width: 100%;
+    background-color: transparent;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    border: none;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
+
+div {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-color: transparent;
+
+    &.surface {
+        background-color: variables.$color-surface;
+        border-radius: 10px;
+    }
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.noVerticalSpacing {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}

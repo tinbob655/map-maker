@@ -1,0 +1,43 @@
+h1 {
+    color: variables.$color-text-header;
+    font-family: Bellota Text;
+    font-size: 35px;
+    font-weight: bolder;
+}
+
+h2 {
+    color: variables.$color-accent;
+    font-family: Bellota Text;
+    font-size: 27px;
+    font-weight: normal;
+}
+
+h3 {
+    color: variables.$color-text-muted;
+    font-family: Mulish;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+p {
+    color: variables.$color-text;
+    font-family: Mulish;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+h1, h2, h3, p {
+    text-align: center;
+
+    &.alignLeft {
+        margin-left: 5%;
+        margin-right: unset;
+        text-align: left;
+    }
+
+    &.alignRight {
+        margin-right: 5%;
+        margin-left: unset;
+        text-align: right;
+    }
+}
