@@ -17,6 +17,15 @@ h3 {
     font-family: Mulish;
     font-size: 22px;
     font-weight: bold;
+    width: fit-content;
+
+    transition-property: transform;
+    transition-duration: 0.75s;
+    transition-timing-function: ease;
+    
+    &:hover {
+        transform: scale(1.1);
+    }
 }
 
 p {
@@ -24,20 +33,21 @@ p {
     font-family: Mulish;
     font-size: 17px;
     font-weight: 300;
+    max-width: 75%;
 }
 
 h1, h2, h3, p {
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 
     &.alignLeft {
         margin-left: 5%;
-        margin-right: unset;
         text-align: left;
     }
 
     &.alignRight {
         margin-right: 5%;
-        margin-left: unset;
         text-align: right;
     }
 }
