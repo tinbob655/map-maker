@@ -25,6 +25,7 @@ button {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 div {
@@ -36,6 +37,15 @@ div {
     &.surface {
         background-color: variables.$color-surface;
         border-radius: 10px;
+    }
+
+    &.dividerLine {
+        width: 75%;
+        height: 4px;
+        background-color: variables.$color-accent;
+        $marginTopBottom: 5px;
+        margin-top: $marginTopBottom;
+        margin-bottom: $marginTopBottom;
     }
 }
 
