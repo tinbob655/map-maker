@@ -1,0 +1,12 @@
+div#createNewMapFormWrapper {
+    height: auto;
+    max-height: 0;
+    transition-property: max-height;
+    transition-duration: 0.75s;
+    transition-timing-function: ease;
+    overflow-y: hidden;
+
+    &.shown {
+        max-height: unset;
+    }
+}

@@ -3,7 +3,7 @@ import {Routes, Route} from 'react-router';
 
 //import all pages
 import Home from './components/pages/home/home';
-import Map from './components/pages/map/map';
+import MapPage from './components/pages/map/mapPage';
 
 export default function SiteRoutes():React.ReactElement {
 
@@ -12,7 +12,7 @@ export default function SiteRoutes():React.ReactElement {
         type routeArray = [string, React.ReactElement]
         const routes:routeArray[] = [
             ['/', <Home/>],
-            ['/map', <Map/>],
+            ['/map', <MapPage/>],
         ];
 
         routes.forEach((route:routeArray) => {
