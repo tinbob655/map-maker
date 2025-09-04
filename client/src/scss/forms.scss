@@ -1,0 +1,70 @@
+input {
+    background-color: variables.$color-bg-secondary;
+    border: none;
+    outline: none;
+    margin: 10px auto;
+    display: block;
+    color: variables.$color-text;
+    font-family: Mulish;
+    border-radius: 10px;
+    padding: 5px 20px;
+
+    transition-property: transform background-color;
+    transition-duration: 0.75s;
+    transition-timing-function: ease;
+
+    &:focus {
+        background-color: variables.$color-surface;
+        transform: scale(1.1) !important;
+        outline: 1px solid white;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    &[type=file] {
+        display: none;
+    }
+
+    &[type=submit] {
+        background-color: transparent;
+        font-size: 20px;
+        font-weight: bolder;
+        color: variables.$color-text-muted;
+        margin: 20px auto;
+
+        &:hover {
+            transform: scale(1.15)
+        }
+    }
+}
+
+label.fileUploadWrapper {
+    display: block;
+    margin: 10px auto;
+    width: fit-content;
+    height: auto;
+    font-family: Mulish;
+    color: variables.$color-text;
+    text-align: center;
+    background-color: variables.$color-bg-secondary;
+    border-radius: 10px;
+    padding: 4px 20px;
+    text-decoration: underline;
+
+    transition-property: transform;
+    transition-duration: 0.75s;
+    transition-timing-function: ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+p.aboveInput {
+    margin-top: 30px;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
