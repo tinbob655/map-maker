@@ -34,8 +34,13 @@ input {
         color: variables.$color-text-muted;
         margin: 20px auto;
 
+        &:focus {
+            outline: unset;
+            transform: unset !important;
+        }
+
         &:hover {
-            transform: scale(1.15)
+            transform: scale(1.15) !important;
         }
     }
 }
