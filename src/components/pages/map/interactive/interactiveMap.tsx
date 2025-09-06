@@ -5,6 +5,10 @@ import MapClass from '../mapClass';
 import type { formattedMapType } from '../mapPage';
 import './interactiveMapStyle.scss';
 
+let [oldX, oldY]:[number, number] = [0, 0];
+let [deltaX, deltaY]:[number, number] = [0, 0];
+let transformationMatrix:[number, number, number, number, number, number] = [1, 0, 0, 1, 0, 0];
+
 export default function InteractiveMap():React.ReactElement {
     const location:{state:{formattedMap:formattedMapType}} = useLocation();
 
@@ -23,8 +27,30 @@ export default function InteractiveMap():React.ReactElement {
         <React.Fragment>
             <PageHeader title={userMap?.name || ''} subtitle="View your interactive map" />
             <div id="mapWrapper">
-                <img id="mapImage" src={userMap?.backgroundImage} />
+                <img id="mapImage" style={{transform: `matrix(${transformationMatrix})`}} src={userMap?.backgroundImage} onDragStart={(event) => {dragStarted(event)}} onDrag={(event) => {mapDragged(event)}} />
             </div>
         </React.Fragment>
     );
+
+    function dragStarted(event:React.DragEvent):void {
+        [oldX, oldY] = [event.clientX, event.clientY];
+    };
+
+    function mapDragged(event:React.DragEvent) {
+
+        //calculate the change in mouse position
+        const [mouseX, mouseY] = [event.clientX, event.clientY];
+        [deltaX, deltaY] = [mouseX - oldX, mouseY - oldY];
+        [oldX, oldY] = [mouseX, mouseY];
+
+        //if the drag is stopped then stop the map from teleporting
+        if (mouseX === 0 || mouseY === 0) {
+            return;
+        };
+
+        //apply the translation
+        transformationMatrix[4] += deltaX;
+        transformationMatrix[5] += deltaY;
+        (document.getElementById('mapImage') as HTMLImageElement).style.transform = `matrix(${transformationMatrix})`;
+    };
 };
