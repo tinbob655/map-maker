@@ -5,6 +5,7 @@ import './mapStyles.scss';
 import createNewMap from './createNewMap';
 import deleteMap from './deleteMap';
 import xIcon from '../../../assets/buttons/x-icon.svg';
+import { Link } from 'react-router';
 
 export interface formattedMapType {
     name: string,
@@ -51,9 +52,11 @@ export default function MapPage():React.ReactElement {
                             <thead>
                                 <tr>
                                     <td style={{width: '80%'}}>
-                                        <h3 className="alignRight">
-                                            -{map.name}
-                                        </h3>
+                                        <Link to="/interactiveMap" state={{formattedMap: map.convertToObject()}} >
+                                            <h3 className="alignRight">
+                                                -{map.name}
+                                            </h3>
+                                        </Link> 
                                     </td>
                                     <td>
                                         <button onClick={() => {
