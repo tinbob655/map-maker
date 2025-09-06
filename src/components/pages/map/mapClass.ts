@@ -6,18 +6,22 @@ export interface POI {
 };
 
 export default class MapClass {
-    #backgroundImage:File;
+    #backgroundImage64:Base64URLString;
     #POIs:POI[];
     #mapName:string;
 
-    constructor(backgroundImage:File, POIs:POI[], mapName:string) {
-        this.#backgroundImage = backgroundImage;
+    constructor(backgroundImage:Base64URLString, POIs:POI[], mapName:string) {
+        this.#backgroundImage64 = backgroundImage;
         this.#POIs = POIs;
         this.#mapName = mapName;
     };
 
     get name():string {
         return this.#mapName;
+    };
+
+    get backgroundImage():string {
+        return this.#backgroundImage64;
     };
 
     addPOI(xCoord:number, yCoord:number, name:string, color:string):void {
@@ -80,5 +84,13 @@ export default class MapClass {
             //if the element to delete was not found
             throw new Error('Could not find the POI to delete: not in POI array');
         };
+    };
+
+    convertToObject():{name:string, backgroundImage64:string, POIs:POI[]} {
+        return ({
+            name: this.#mapName,
+            backgroundImage64: this.#backgroundImage64,
+            POIs: this.#POIs,
+        });
     };
 };

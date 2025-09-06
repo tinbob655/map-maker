@@ -2,67 +2,79 @@ import React, {useEffect, useState} from 'react';
 import PageHeader from '../../multiPageComponents/pageHeader';
 import MapClass from './mapClass';
 import './mapStyles.scss';
+import createNewMap from './createNewMap';
+import deleteMap from './deleteMap';
+import xIcon from '../../../assets/buttons/x-icon.svg';
+
+export interface formattedMapType {
+    name: string,
+    backgroundImage64:string,
+    POIs: {
+        name: string,
+        xCoord: number,
+        yCoord: number,
+        color: string,
+    }[],
+}[];
 
 export default function MapPage():React.ReactElement {
 
     const [userMaps, setUserMaps] = useState<MapClass[]>([]);
+    const [mapsHTML, setMapsHTML] = useState<React.ReactElement[]>([]);
+    const [refresh, setRefresh] = useState<number>(Math.random());
 
     //get any saved user maps on page load
     useEffect(() => {
+        if (localStorage.getItem('savedMaps')) {
 
-        //function to fetch the user's saved maps
-        async function getMaps():Promise<MapClass[]> {
-
-            //attempt to find user's maps
-            try {
-                const userMaps = await fetch('http://localhost:5000/api/getMaps');
-                const data = await userMaps.json();
-                return data;
-            } catch(error) {
-
-                //if there was a server error
-                throw error;
-            };
+            //the user has maps saved, get them
+            let tempMaps:MapClass[] = [];
+            JSON.parse(localStorage.getItem('savedMaps') as string).forEach((map:formattedMapType) => {
+                tempMaps.push(new MapClass(map.backgroundImage64, map.POIs, map.name));
+            });
+            setUserMaps(tempMaps);
+            setRefresh(Math.random());
         };
-
-        getMaps().then((maps) => {
-
-            //check if the user actually had any maps saved
-            if (maps.length > 0) {
-
-                setUserMaps(maps);
-            };
-        });
     }, []);
 
-    function getMapsHTML():React.ReactElement[] {
+    //will fire when refresh changes
+    useEffect(() => {
 
-        //only run if the user has maps saved
+        //keep mapsHTML up to date
+        //only run if the user has maps
         if (userMaps.length > 0) {
             let tempMapsHTML:React.ReactElement[] = [];
             userMaps.forEach((map) => {
                 tempMapsHTML.push(
-                    <p>
-                        -{map.name}
-                    </p>
-                )
-            })
-            return tempMapsHTML;
+                    <React.Fragment>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td style={{width: '80%'}}>
+                                        <h3 className="alignRight">
+                                            -{map.name}
+                                        </h3>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => {
+                                            setUserMaps(deleteMap(map.name, userMaps));
+                                            setRefresh(Math.random())
+                                            }} type="button">
+                                            <img src={xIcon} className="buttonImage" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </React.Fragment>
+                );
+            });
+            setMapsHTML(tempMapsHTML);
         }
-        else return [<></>];
-    };
-
-    function createNewMap(event:React.FormEvent) {
-        event.preventDefault();
-
-        //get the data from the form event
-        const target = event.target as typeof event.target & {
-            mapName: {value:string},
-            backgroundImage: {value:string},
+        else {
+            setMapsHTML([]);
         };
-        const mapName:string = target.mapName.value;
-        const backgroundImage:string = target.backgroundImage.value;
-    };
+    }, [refresh]);
 
     return (
         <React.Fragment>
@@ -76,7 +88,7 @@ export default function MapPage():React.ReactElement {
                 <React.Fragment>
 
                     {/*there are maps which the user has saved, show the user their maps*/}
-                    {getMapsHTML()}
+                    {mapsHTML}
                 </React.Fragment>
             ) : (
                 <React.Fragment>
@@ -103,7 +115,11 @@ export default function MapPage():React.ReactElement {
                 </h3>
             </button>
             <div id="createNewMapFormWrapper">
-                <form id="createNewMapForm" onSubmit={(event) => {createNewMap(event)}}>
+                <form id="createNewMapForm" onSubmit={(event) => {
+                    createNewMap(event, userMaps).then((res) => {
+                        setUserMaps(res);
+                        setRefresh(Math.random());
+                    })}}>
                     <p className="aboveInput">
                         Map name:
                     </p>

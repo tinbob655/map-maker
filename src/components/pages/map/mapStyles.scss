@@ -7,6 +7,6 @@ div#createNewMapFormWrapper {
     overflow-y: hidden;
 
     &.shown {
-        max-height: unset;
+        max-height: 250px;
     }
 }
