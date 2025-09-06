@@ -8,6 +8,7 @@ import './interactiveMapStyle.scss';
 let [oldX, oldY]:[number, number] = [0, 0];
 let [deltaX, deltaY]:[number, number] = [0, 0];
 let transformationMatrix:[number, number, number, number, number, number] = [1, 0, 0, 1, 0, 0];
+let oldScroll:number = 0;
 
 export default function InteractiveMap():React.ReactElement {
     const location:{state:{formattedMap:formattedMapType}} = useLocation();
@@ -23,11 +24,16 @@ export default function InteractiveMap():React.ReactElement {
         else throw new Error(`Could not find map to render. Received state of: ${location.state}`);
     }, []);
 
+    //set eventListeners
+    useEffect(() => {
+        (document.getElementById('mapImage') as HTMLImageElement).addEventListener('wheel', (event:WheelEvent) => {mapZoomed(event), {active: true}})
+    })
+
     return (
         <React.Fragment>
             <PageHeader title={userMap?.name || ''} subtitle="View your interactive map" />
             <div id="mapWrapper">
-                <img id="mapImage" style={{transform: `matrix(${transformationMatrix})`}} src={userMap?.backgroundImage} onDragStart={(event) => {dragStarted(event)}} onDrag={(event) => {mapDragged(event)}} />
+                <img id="mapImage" style={{transform: `matrix(${transformationMatrix})`}} src={userMap?.backgroundImage} onDragStart={(event) => {dragStarted(event)}} onDrag={(event) => {mapDragged(event)}}/>
             </div>
         </React.Fragment>
     );
@@ -52,5 +58,27 @@ export default function InteractiveMap():React.ReactElement {
         transformationMatrix[4] += deltaX;
         transformationMatrix[5] += deltaY;
         (document.getElementById('mapImage') as HTMLImageElement).style.transform = `matrix(${transformationMatrix})`;
+    };
+
+    function mapZoomed(event:WheelEvent):void {
+        
+        //calculate the transformation
+        const scrollAmount = event.deltaY;
+        transformationMatrix[0] -= (scrollAmount / 1000);
+
+        //apply the transformation if we are within certain bounds
+        const bounds = [0.1, 10];
+        if (transformationMatrix[0] >= bounds[0] && transformationMatrix[0] <= bounds[1]) {
+
+            //we are good to apply the transformation
+            transformationMatrix[3] = transformationMatrix[0];
+            (document.getElementById('mapImage') as HTMLImageElement).style.transform = `matrix(${transformationMatrix})`;
+            event.preventDefault();
+        }
+        else {
+
+            //we are not good to apply the transformation, roll back the changes to transformationMatrix
+            transformationMatrix[0] = transformationMatrix[3];
+        };
     };
 };
