@@ -8,7 +8,6 @@ import './interactiveMapStyle.scss';
 let [oldX, oldY]:[number, number] = [0, 0];
 let [deltaX, deltaY]:[number, number] = [0, 0];
 let transformationMatrix:[number, number, number, number, number, number] = [1, 0, 0, 1, 0, 0];
-let oldScroll:number = 0;
 
 export default function InteractiveMap():React.ReactElement {
     const location:{state:{formattedMap:formattedMapType}} = useLocation();
