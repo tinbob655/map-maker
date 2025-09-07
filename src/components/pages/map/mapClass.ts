@@ -24,6 +24,10 @@ export default class MapClass {
         return this.#backgroundImage64;
     };
 
+    get POIs():POI[] {
+        return this.#POIs;
+    };
+
     addPOI(xCoord:number, yCoord:number, name:string, color:string):void {
         this.#POIs.push({
             xCoord: xCoord,
