@@ -6,6 +6,7 @@ import createNewMap from './createNewMap';
 import deleteMap from './deleteMap';
 import xIcon from '../../../assets/buttons/x-icon.svg';
 import { Link } from 'react-router';
+import getMaps from './getMaps';
 
 export interface formattedMapType {
     name: string,
@@ -29,10 +30,7 @@ export default function MapPage():React.ReactElement {
         if (localStorage.getItem('savedMaps')) {
 
             //the user has maps saved, get them
-            let tempMaps:MapClass[] = [];
-            JSON.parse(localStorage.getItem('savedMaps') as string).forEach((map:formattedMapType) => {
-                tempMaps.push(new MapClass(map.backgroundImage64, map.POIs, map.name));
-            });
+            let tempMaps:MapClass[] = getMaps();
             setUserMaps(tempMaps);
             setRefresh(Math.random());
         };
