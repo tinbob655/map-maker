@@ -8,6 +8,7 @@ input {
     font-family: Mulish;
     border-radius: 10px;
     padding: 5px 20px;
+    max-width: 63%;
 
     transition-property: transform background-color;
     transition-duration: 0.75s;
@@ -33,6 +34,7 @@ input {
         font-weight: bolder;
         color: variables.$color-text-muted;
         margin: 20px auto;
+        max-width: unset;
 
         &:focus {
             outline: unset;
@@ -42,6 +44,13 @@ input {
         &:hover {
             transform: scale(1.15) !important;
         }
+    }
+
+    &[type=color] {
+        padding: none;
+        background-color: transparent;
+        outline: none;
+        scale: 2;
     }
 }
 
