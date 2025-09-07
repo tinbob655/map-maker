@@ -1,5 +1,5 @@
-import type MapClass from "./mapClass";
-import type { formattedMapType } from "./mapPage";
+import type MapClass from "../mapClass";
+import type { formattedMapType } from "../mapPage";
 
 export default function saveMaps(mapArray:MapClass[]):void {
 

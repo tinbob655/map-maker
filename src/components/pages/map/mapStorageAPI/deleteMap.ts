@@ -1,5 +1,5 @@
 import type MapClass from "../mapClass";
-import saveMaps from "../saveMaps";
+import saveMaps from "./saveMaps";
 
 export default function deleteMap(mapName:string, userMaps:MapClass[]):MapClass[] {
 
