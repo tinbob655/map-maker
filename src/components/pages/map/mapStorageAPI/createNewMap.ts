@@ -1,6 +1,6 @@
-import MapClass from "./mapClass";
-import imgToBase64 from "../../../functions/imgToBase64";
-import saveMaps from "./saveMaps";
+import MapClass from "../mapClass";
+import imgToBase64 from "../../../../functions/imgToBase64";
+import saveMaps from "../saveMaps";
 
 export default async function createNewMap(event:React.FormEvent, userMaps:MapClass[]):Promise<MapClass[]> {
     event.preventDefault();

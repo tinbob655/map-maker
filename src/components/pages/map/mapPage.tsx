@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import PageHeader from '../../multiPageComponents/pageHeader';
 import MapClass from './mapClass';
 import './mapStyles.scss';
-import createNewMap from './createNewMap';
-import deleteMap from './deleteMap';
+import createNewMap from './mapStorageAPI/createNewMap';
+import deleteMap from './mapStorageAPI/deleteMap';
 import xIcon from '../../../assets/buttons/x-icon.svg';
 import { Link } from 'react-router';
-import getMaps from './getMaps';
+import getMaps from './mapStorageAPI/getMaps';
 
 export interface formattedMapType {
     name: string,

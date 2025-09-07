@@ -1,5 +1,5 @@
-import MapClass from "./mapClass";
-import type { formattedMapType } from "./mapPage";
+import MapClass from "../mapClass";
+import type { formattedMapType } from "../mapPage";
 
 export default function getMaps():MapClass[] {
 
