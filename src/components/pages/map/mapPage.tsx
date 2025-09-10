@@ -61,7 +61,7 @@ export default function MapPage():React.ReactElement {
                                             setUserMaps(deleteMap(map.name, userMaps));
                                             setRefresh(Math.random())
                                             }} type="button">
-                                            <img src={xIcon} className="buttonImage" />
+                                            <img src={xIcon} className="buttonImage xIcon" />
                                         </button>
                                     </td>
                                 </tr>
